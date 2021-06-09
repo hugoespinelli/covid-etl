@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "covid-etl"
+version = "0.1.0"
+description = ""
+authors = ["hugo-espinelli <hugoespinelli@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+flake8 = "^3.9.2"
+mypy = "^0.901"
+black = "^21.5b2"
+isort = "^5.8.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
