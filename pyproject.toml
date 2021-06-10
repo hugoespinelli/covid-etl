@@ -6,6 +6,9 @@ authors = ["hugo-espinelli <hugoespinelli@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+paramiko = "^2.7.2"
+python-dotenv = "^0.17.1"
+scp = "^0.13.4"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
