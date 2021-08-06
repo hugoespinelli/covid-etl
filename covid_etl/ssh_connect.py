@@ -1,10 +1,13 @@
 import argparse
+import logging
 from typing import List
 
 from paramiko import AutoAddPolicy, SSHClient
 from scp import SCPClient
 
 from covid_etl.consts import SERVER_MACHINE_IP, SSH_PASSWORD, SSH_PORT, SSH_USERNAME
+
+logger = logging.getLogger()
 
 
 def get_ssh_connection() -> SSHClient:
@@ -31,17 +34,30 @@ def exec_command(client: SSHClient, command: str) -> List[str]:
     return [line.strip("\n") for line in stdout]
 
 
-def main(source: str, destination: str) -> None:
-    print("Começando extração...")
-    print("Tentando conectar com o servidor...")
+def transfer(source: str, destination: str) -> None:
+    logger.info("Começando extração...")
+    logger.info("Tentando conectar com o servidor...")
     client = get_ssh_connection()
-    print("Conexão efetuada com sucesso!")
+    logger.info("Conexão efetuada com sucesso!")
     scp = SCPClient(client.get_transport())
-    print(f"Iniciando transferência {source} para {destination}")
+    logger.info(f"Iniciando transferência {source} para {destination}")
     scp.get(remote_path=source, local_path=destination, recursive=True)
     scp.close()
     client.close()
-    print("Extração finalizada.")
+    logger.info("Extração finalizada.")
+
+
+def put(source: str, destination: str) -> None:
+    logger.info("Começando extração...")
+    logger.info("Tentando conectar com o servidor...")
+    client = get_ssh_connection()
+    logger.info("Conexão efetuada com sucesso!")
+    scp = SCPClient(client.get_transport())
+    logger.info(f"Iniciando transferência {source} para {destination}")
+    scp.put(source, remote_path=destination, recursive=True)
+    scp.close()
+    client.close()
+    logger.info("Extração finalizada.")
 
 
 if __name__ == "__main__":
@@ -63,4 +79,4 @@ if __name__ == "__main__":
         help="O path da onde deseja depositar os arquivos extraidos",
     )
     args = parser.parse_args()
-    main(args.source, args.destination)
+    transfer(args.source, args.destination)
