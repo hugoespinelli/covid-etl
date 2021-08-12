@@ -10,7 +10,7 @@ logger = logging.getLogger()
 class FileSystemSync(FileSystemEventHandler):
     def __init__(self, destination) -> None:
         super().__init__()
-        self._destionation = destination
+        self._destination = destination
 
     def on_created(self, event):
         if event.is_directory:
