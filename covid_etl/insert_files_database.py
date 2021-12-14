@@ -32,7 +32,7 @@ def insert_file(filepath: str, nome: str):
     with get_connection() as connection:
         insert_query = """
         INSERT INTO covid.arquivo
-        (caminho_salvo_servidor, nome)
+        (caminho_salvo_servidor, identificador)
         VALUES(%s, %s);
         """
         cursor = connection.cursor()
