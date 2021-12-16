@@ -12,7 +12,6 @@ class FileSystemSync(FileSystemEventHandler):
         super().__init__()
         self._destination = destination
 
-    def on_created(self, event):
-        if event.is_directory:
-            logger.info("Directory was created. Starting transfer process...")
-            put(event.src_path, self._destination)
+    def on_any_event(self, event):
+        logger.info(f"Event detected {event.event_type }. Starting transfer process...")
+        put(event.src_path, self._destination)
