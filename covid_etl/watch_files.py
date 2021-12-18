@@ -11,7 +11,7 @@ logger = logging.getLogger()
 
 def main(args) -> None:
     logger.info(args)
-    event_hander = FileSystemSync(args.destination)
+    event_hander = FileSystemSync(args.destination, args.listening)
     observer = Observer()
     observer.schedule(event_hander, args.listening, recursive=True)
     observer.start()
